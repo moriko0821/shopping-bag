@@ -1,0 +1,41 @@
+.product-page {
+  padding: 80px 0;
+  display: flex;
+
+  .photo {
+    width: 40%;
+    & img {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--dark-color);
+    }
+  }
+
+  .info {
+    flex: 1;
+    padding-left: 20px;
+
+    & > * {
+      margin-bottom: 8px;
+    }
+
+    & h1 {
+      font-size: 24px;
+    }
+
+    & p {
+      font-size: 14px;
+      line-height: 150%;
+    }
+
+    p.price {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    p.small {
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+  }
+}

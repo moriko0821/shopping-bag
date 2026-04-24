@@ -1,0 +1,14 @@
+.categories {
+  padding: 60px;
+  text-align: center;
+
+  & h2 {
+    margin-bottom: 20px;
+  }
+
+  & img {
+    width: 180px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+  }
+}
