@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useBasket } from "../context/BasketContext";
 import { formatPrice } from "../util";
 import styles from "./basketItems.module.css";
@@ -6,6 +7,8 @@ import Link from "next/link";
 
 export default function BasketItems() {
   const { removeFromBag, items, updateQuantity, emptyBasket } = useBasket();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(null);
 
   const handleRemoveItem = (itemId) => {
     if (confirm("Are you sure you want to remove this item from the basket?"))
@@ -20,6 +23,37 @@ export default function BasketItems() {
     return formatPrice(
       items.reduce((total, item) => total + item.price * item.quantity, 0),
     );
+  };
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+    setCheckoutError(null);
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            id: item.id,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Checkout failed");
+      }
+
+      // Stripeの決済ページへリダイレクト
+      window.location.href = data.url;
+    } catch (error) {
+      console.error("[Checkout Error]", error);
+      setCheckoutError(error.message);
+      setIsCheckingOut(false);
+    }
   };
 
   return (
@@ -97,15 +131,26 @@ export default function BasketItems() {
               </tr>
             </tbody>
           </table>
+
+          {checkoutError && (
+            <div className={styles["checkout-error"]}>⚠️ {checkoutError}</div>
+          )}
+
           <section className={styles["basket-options"]}>
-            <button className="outline" onClick={handleEmptyBasket}>
+            <button
+              className="outline"
+              onClick={handleEmptyBasket}
+              disabled={isCheckingOut}
+            >
               Empty Basket
             </button>
             <Link href="/products">
-              <button className="outline">Continue Shopping</button>
+              <button className="outline" disabled={isCheckingOut}>
+                Continue Shopping
+              </button>
             </Link>
-            <button onClick={() => alert("Congrats, you finished the process")}>
-              Proceed to Checkout
+            <button onClick={handleCheckout} disabled={isCheckingOut}>
+              {isCheckingOut ? "Redirecting..." : "Proceed to Checkout"}
             </button>
           </section>
         </>
