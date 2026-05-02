@@ -1,0 +1,47 @@
+.cancel {
+  & .content {
+    text-align: center;
+    padding: 80px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  & .icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    background-color: #ff9800;
+    color: white;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  & h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+  }
+
+  & .message {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+  }
+
+  & .sub-message {
+    font-size: 14px;
+    color: var(--grey-color);
+    margin-bottom: 40px;
+  }
+
+  & .actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
