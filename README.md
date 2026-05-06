@@ -1,5 +1,8 @@
 # 🛍️ Shopping Bag - Next.js E-commerce with Stripe Integration
 
+> 🌐 **Live Demo**: https://shopping-bag-xi.vercel.app
+> 🧪 **Test Card**: `4242 4242 4242 4242` (any future expiry, any CVC, any postal code)
+
 A modern e-commerce demo built with **Next.js 16** and **React 19**, featuring secure payment processing via **Stripe Checkout** and **Webhook** integration.
 
 Next.js 16 と React 19 で構築した EC サイトのデモ。**Stripe Checkout** と **Webhook** によるセキュアな決済機能を実装しています。
